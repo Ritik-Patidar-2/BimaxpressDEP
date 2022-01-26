@@ -60,7 +60,6 @@ function App() {
     
     <Router>
       <Routes>
-        {/* {console.log("user app -",user)}
         {user ? ( userRole === "admin" ? (
               <>
                 <Route path='/preauthform' element={<PreauthForm />} />
@@ -98,34 +97,10 @@ function App() {
               <>
                 <Route path='/preauthform' element={<PreauthForm />} />
                 <Route path='/' element={DepWrapper(<DepHome />)} />
-                <Route path='/plan' element={DepWrapper(<Plan />)} />
-                <Route path='/hospital' element={DepWrapper(<Hospital />)} />
-                <Route path='/analyst' element={DepWrapper(<Analyst />)} />
-                <Route path='/analyst/:key' element={DepWrapper(<AnalystUpdate />)} />
-                <Route
-                  path='/analyst/create'
-                  element={DepWrapper(<AnalystCreate />)}
-                />
-                <Route path='/doctor' element={DepWrapper(<Doctor />)} />
-                <Route path='/doctor/create' element={DepWrapper(<DoctorCreate />)} />
-                <Route path='/doctor/:key' element={DepWrapper(<DoctorUpdate />)} />
+                <Route path='/dephome' element={DepWrapper(<DepHome />)} />
                 <Route path='/newCase' element={DepWrapper(<NewCase />)} />
                 <Route path='/newCase/:case' element={DepWrapper(<NewCase />)} />
-                <Route path='/order' element={DepWrapper(<Order />)} />
                 <Route path='/:case' element={DepWrapper(<DepDrafts />)} />
-                <Route path='/mail' element={DepWrapper(<Mail />)} />
-                <Route
-                  path='/empanelledCompanies'
-                  element={DepWrapper(<EmpanelledCompanies />)}
-                />
-                <Route
-                  path='/empanelledCompanies/create'
-                  element={DepWrapper(<CreateCompany />)}
-                />
-                <Route
-                  path='/empanelledCompanies/:key'
-                  element={DepWrapper(<UpdateCompanies />)}
-                />
               </>
         )) : (
           <>
@@ -134,12 +109,12 @@ function App() {
             <Route path='/login' element={<LoginPage />} />
           </>
         )
-      } */}
+      }
 
-        {
+        {/* {
           user ? (
               <>
-                <Route path='/preauthform' element={<PreauthForm />} />
+                (<Route path='/preauthform' element={<PreauthForm />} />
                 <Route path='/' element={Wrapper(<Home />)} />
                 <Route path='/plan' element={Wrapper(<Plan />)} />
                 <Route path='/hospital' element={Wrapper(<Hospital />)} />
@@ -169,11 +144,14 @@ function App() {
                   path='/empanelledCompanies/:key'
                   element={Wrapper(<UpdateCompanies />)}
                 />
+                
+                )
 
 
               <Route path='/preauthform' element={<PreauthForm />} />
               <Route path='/dephome' element={DepWrapper(<DepHome />)} />
               <Route path='/:case' element={DepWrapper(<DepDrafts />)} />
+              <Route path='/newCase' element={DepWrapper(<NewCase />)} />
               
 
 
@@ -186,16 +164,7 @@ function App() {
               <Route path='/login' element={<LoginPage />} />
              </>
           )
-        }
-
-
-
-
-
-
-
-
-
+        } */}
 
 
       </Routes>

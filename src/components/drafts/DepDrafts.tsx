@@ -12,7 +12,7 @@ import {
 
 import TableSearch from '../theme/table/tableSearchInput/TableSearchInput';
 import TableSearchButton from '../theme/table/tableSearchButton/TableSearchButton';
-import ReactTable from '../theme/reactTable/ReactTable';
+import DepReactTable from '../theme/reactTable/DepReactTable';
 import NewCaseSelect from '../theme/select/newCaseSelect/NewCaseSelect';
 import TableCheckbox from '../theme/table/tableCheckbox/TableCheckbox';
 
@@ -28,11 +28,14 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axiosConfig from '../../config/axiosConfig';
 import { setCaseData } from '../../redux/slices/homeSlice';
 import notification from '../theme/utility/notification';
-import SummeryModal from './Summary/SummeryModal';
-import NewAction from './newAction/NewAction';
-import SentMail from './sentMail/SentMail';
-import ApproveModal from './approveModal/ApproveModal';
-import EnchanceAndFciModal from './enhanceAndFci/EnchanceAndFci';
+import DepSummeryModal from './Summary/DepSummeryModal';
+import DepNewAction from './newAction/DepNewAction';
+import DepSentMail from './sentMail/DepSentMail';
+import DepApproveModal from './approveModal/DepApproveModal';
+import DepEnchanceAndFciModal from './enhanceAndFci/DepEnchanceAndFci';
+import DepUnprocessedModal from './unprocessedModal/DepUnprocessedModal';
+import DepEnchanceModal from './Depenhance/DepEnchanceModal';
+import DepQueryModal from './DepQuery/DepQueryModal' ;
 
 const insuranceCompany = [
   { label: 'Health India Insurance', value: 'health_india_insurance' },
@@ -85,10 +88,21 @@ const DepDrafts = () => {
   const toggleApproveModal = () => {
     setOpenApproveModal((pre) => !pre);
   };
-  const [openEnhanceAndFciModal, setOpenEnhanceAndFciModal] =
-    useState<boolean>(false);
+  const [openUnprocessedModal, setOpenUnprocessedModal] = useState<boolean>(false);
+  const toggleUnprocessedModal = () => {
+    setOpenUnprocessedModal((pre) => !pre);
+  };
+  const [openEnhanceAndFciModal, setOpenEnhanceAndFciModal] = useState<boolean>(false);
   const toggleEnhanceAndFciModal = () => {
     setOpenEnhanceAndFciModal((pre) => !pre);
+  };
+  const [openDepEnhanceModal, setOpenDepEnhanceModal] = useState<boolean>(false);
+  const toggleDepEnhanceModal = () => {
+    setOpenDepEnhanceModal((pre) => !pre);
+  };
+  const [openDepQueryModal, setOpenDepQueryModal] = useState<boolean>(false);
+  const toggleDepQueryModal = () => {
+    setOpenDepQueryModal((pre) => !pre);
   };
 
 
@@ -96,7 +110,7 @@ const DepDrafts = () => {
 
   const fetchAnalyst = async () => {
     dispatch(setLoading(true));
-    console.log(param?.case);                        // -------------------------------
+    // console.log(param?.case);                        // -------------------------------
     const URL = `/all${param?.case}`;
 
     try {
@@ -106,10 +120,10 @@ const DepDrafts = () => {
         hospitalList.push({ label: value, value: key });
       });
       sethospitalList(hospitalList);
-      console.log(hospitalList);
+      // console.log(hospitalList);
 
       const { data } = await axiosConfig.get(URL);
-      console.log(data);                                // -------------------------------
+      // console.log(data);                                // -------------------------------
       dispatch(setLoading(false));
       dispatch(setCaseData(data?.data));
     } catch (error) {
@@ -140,7 +154,7 @@ const DepDrafts = () => {
 
   useEffect(() => {
     if (action === 'query') {
-      toggleSentmailModal();
+      toggleDepQueryModal();
     }
     if (
       action === 'Approved' ||
@@ -149,8 +163,14 @@ const DepDrafts = () => {
     ) {
       toggleApproveModal();
     }
-    if (action === 'Enhance' || action === 'fci') {
+    if (action === 'fci') {
       toggleEnhanceAndFciModal();
+    }
+    if (action === 'Enhance') {
+      toggleDepEnhanceModal();
+    }
+    if (action === 'Unprocessed') {
+      toggleUnprocessedModal();
     }
   }, [action]);
 
@@ -428,7 +448,7 @@ const DepDrafts = () => {
           </div>
         </div>
       </div>
-      <ReactTable
+      <DepReactTable
         getTableProps={getTableProps}
         getTableBodyProps={getTableBodyProps}
         headerGroups={headerGroups}
@@ -440,14 +460,14 @@ const DepDrafts = () => {
         canPreviousPage={canPreviousPage}
       />
 
-      <SummeryModal
+      <DepSummeryModal
         summeryData={summeryData}
         closeModal={toggleSummeryModal}
         isOpen={openSummeryModal}
         toggleNewActionModal={toggleNewActionModal}
       />
 
-      <NewAction
+      <DepNewAction
         closeModal={toggleNewActionModal}
         isOpen={openNewActionModal}
         selectValue={action}
@@ -457,22 +477,40 @@ const DepDrafts = () => {
         action={action}
       />
 
-      <SentMail
+      <DepSentMail
         newCaseData={summeryData}
         closeModal={toggleSentmailModal}
         isOpen={openSentmailModal}
         action={action}
       />
 
-      <ApproveModal
+      <DepApproveModal
         closeModal={toggleApproveModal}
         isOpen={openApproveModal}
         newCaseData={summeryData}
         action={action}
       />
-      <EnchanceAndFciModal
+      <DepUnprocessedModal
+        closeModal={toggleUnprocessedModal}
+        isOpen={openUnprocessedModal}
+        newCaseData={summeryData}
+        action={action}
+      />
+      <DepEnchanceAndFciModal
         closeModal={toggleEnhanceAndFciModal}
         isOpen={openEnhanceAndFciModal}
+        newCaseData={summeryData}
+        action={action}
+      />
+      <DepEnchanceModal
+        closeModal={toggleDepEnhanceModal}
+        isOpen={openDepEnhanceModal}
+        newCaseData={summeryData}
+        action={action}
+      />
+      <DepQueryModal
+        closeModal={toggleDepQueryModal}
+        isOpen={openDepQueryModal}
         newCaseData={summeryData}
         action={action}
       />
